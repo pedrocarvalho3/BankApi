@@ -1,83 +1,84 @@
+using Bank.Models.Enums;
+
 namespace Bank.Models
 {
-    public abstract class Account : IAccount
+    public class Account : IAccount
     {
-        private readonly List<Transaction> _transaction = new();
-        
-        public string Holder { get; set; }
-        public decimal Balance { get; protected set; }
-        public IReadOnlyCollection<Transaction> Transactions => _transaction.AsReadOnly();
+        public int Id { get; private set; }
+        public string Holder { get; private set; }
+        public decimal Balance { get; private set; }
+        public AccountType AccountType { get; private set; }
+        public List<Transaction> Transactions { get; private set; } = new();
 
-        public Account(string holder)
+        protected Account() { }
+
+        public Account(string holder, AccountType accountType)
         {
             if (string.IsNullOrWhiteSpace(holder))
-                throw new ArgumentNullException("Holder is required");
-            
-            this.Holder = holder;
+                throw new ArgumentNullException(nameof(holder), "Holder is required");
+
+            Holder = holder;
+            AccountType = accountType;
             Balance = 0;
         }
-        
-        public abstract void Withdraw(decimal amount, bool isTransfer);
 
-        public void Deposit(decimal amount, bool isTransfer)
+        public void Deposit(decimal amount)
         {
             ValidatePositiveAmount(amount);
-
-            this.Balance += amount;
-
-            if (!isTransfer)
-                AddTransaction(TransactionType.Deposit, amount, "Deposit completed.");
+            Balance += amount;
         }
-        
-        public void Transfer(Account destinationAccount, decimal amount)
-        {
-            if (destinationAccount is null)
-                throw new ArgumentNullException(nameof(destinationAccount));
 
-            if (ReferenceEquals(this, destinationAccount))
-                throw new InvalidOperationException("Cannot transfer to the same account.");
-            
+        public void Withdraw(decimal amount)
+        {
             ValidatePositiveAmount(amount);
-            
+
+            switch (AccountType)
+            {
+                case AccountType.Savings:
+                    WithdrawFromSavings(amount);
+                    break;
+
+                case AccountType.Current:
+                    WithdrawFromCurrent(amount);
+                    break;
+
+                default:
+                    throw new InvalidOperationException("Invalid account type.");
+            }
+        }
+
+        private void WithdrawFromSavings(decimal amount)
+        {
             ValidateSufficientBalance(amount);
-            
-            Withdraw(amount, true);
-            destinationAccount.Deposit(amount, true);
-            
-            AddTransaction(
-                TransactionType.TransferSent,
-                amount,
-                $"Transfer sent to {destinationAccount.Holder}."
-            );
-
-            destinationAccount.AddTransaction(
-                TransactionType.TransferReceived,
-                amount,
-                $"Transfer received from {Holder}."
-            );
+            Balance -= amount;
         }
 
-        public override string ToString()
+        private void WithdrawFromCurrent(decimal amount)
         {
-            return $"Holder: {Holder}, Balance: {Balance}";
+            const decimal withdrawFeeRate = 0.01m;
+            const decimal maxWithdrawPercentage = 0.50m;
+
+            var maxAllowedPerOperation = Balance * maxWithdrawPercentage;
+            if (amount > maxAllowedPerOperation)
+                throw new InvalidOperationException("The withdrawal exceeds the allowed per-operation limit.");
+
+            var fee = amount * withdrawFeeRate;
+            var totalDebit = amount + fee;
+
+            ValidateSufficientBalance(totalDebit);
+            Balance -= totalDebit;
         }
 
-        protected void ValidatePositiveAmount(decimal amount)
+        private void ValidatePositiveAmount(decimal amount)
         {
-            if (amount < 0)
-                throw new InvalidOperationException("Amount must be positive.");
+            if (amount <= 0)
+                throw new InvalidOperationException("Amount must be greater than zero.");
         }
 
-        protected void ValidateSufficientBalance(decimal amount)
+        private void ValidateSufficientBalance(decimal amount)
         {
-            if (this.Balance < amount)
+            if (Balance < amount)
                 throw new InvalidOperationException("Insufficient balance.");
         }
-
-        protected void AddTransaction(TransactionType type, decimal amount, string description)
-        {
-            _transaction.Add(new Transaction(type, amount, description));
-        }
-
     }
 }

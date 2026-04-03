@@ -2,6 +2,7 @@ namespace Bank.Models
 {
     public class Transaction
     {
+        public int Id { get; private set; }
         public TransactionType Type { get; set; }
         public decimal Amount { get; set; }
         public DateTime CreatedAt { get; set; }

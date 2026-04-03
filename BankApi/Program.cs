@@ -1,17 +1,21 @@
-using BankApi.Interfaces;
-using BankApi.Services;
+using BankApi.Endpoints;
+using BankApi.Infrastructure;
+using BankApi.Repositories;
+using BankApi.UseCases;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddTransient<IWelcomeService, WelcomeService>();
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("TodoList"));
+
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+
+builder.Services.AddScoped<CreateAccountUseCase>();
+builder.Services.AddScoped<GetAllAccountsUseCase>();
+builder.Services.AddScoped<DepositUseCase>();
+builder.Services.AddScoped<WithdrawUseCase>();
 
 var app = builder.Build();
 
-app.MapGet("/", (IWelcomeService welcomeService1, IWelcomeService welcomeService2) =>
-{
-    string message1 = $"Message1: {welcomeService1.GetWelcomeMessage()}";
-    string message2 = $"Message2: {welcomeService2.GetWelcomeMessage()}";
-    
-    return $"{message1}\n{message2}";
-});
+app.MapAccountEndpoints();
 
 app.Run();

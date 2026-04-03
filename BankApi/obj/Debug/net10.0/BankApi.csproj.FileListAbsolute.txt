@@ -26,3 +26,8 @@
 /Users/user/RiderProjects/BankApi/BankApi/obj/Debug/net10.0/BankApi.pdb
 /Users/user/RiderProjects/BankApi/BankApi/obj/Debug/net10.0/BankApi.genruntimeconfig.cache
 /Users/user/RiderProjects/BankApi/BankApi/obj/Debug/net10.0/ref/BankApi.dll
+/Users/user/RiderProjects/BankApi/BankApi/bin/Debug/net10.0/Microsoft.EntityFrameworkCore.dll
+/Users/user/RiderProjects/BankApi/BankApi/bin/Debug/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/user/RiderProjects/BankApi/BankApi/bin/Debug/net10.0/Microsoft.EntityFrameworkCore.InMemory.dll
+/Users/user/RiderProjects/BankApi/BankApi/obj/Debug/net10.0/BankApi.csproj.AssemblyReference.cache
+/Users/user/RiderProjects/BankApi/BankApi/obj/Debug/net10.0/BankApi.csproj.Up2Date
