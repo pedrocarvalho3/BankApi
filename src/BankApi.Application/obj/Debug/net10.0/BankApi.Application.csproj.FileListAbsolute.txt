@@ -1,0 +1,16 @@
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/bin/Debug/net10.0/BankApi.Application.deps.json
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/bin/Debug/net10.0/BankApi.Application.dll
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/bin/Debug/net10.0/BankApi.Application.pdb
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/bin/Debug/net10.0/BankApi.Core.dll
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/bin/Debug/net10.0/BankApi.Core.pdb
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/obj/Debug/net10.0/BankApi.Application.csproj.AssemblyReference.cache
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/obj/Debug/net10.0/BankApi.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/obj/Debug/net10.0/BankApi.Application.AssemblyInfoInputs.cache
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/obj/Debug/net10.0/BankApi.Application.AssemblyInfo.cs
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/obj/Debug/net10.0/BankApi.Application.csproj.CoreCompileInputs.cache
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/obj/Debug/net10.0/BankApi.Application.sourcelink.json
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/obj/Debug/net10.0/BankApi..AB838580.Up2Date
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/obj/Debug/net10.0/BankApi.Application.dll
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/obj/Debug/net10.0/refint/BankApi.Application.dll
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/obj/Debug/net10.0/BankApi.Application.pdb
+/Users/user/RiderProjects/BankApi/src/BankApi.Application/obj/Debug/net10.0/ref/BankApi.Application.dll
