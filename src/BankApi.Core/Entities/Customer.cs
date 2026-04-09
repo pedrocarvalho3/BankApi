@@ -2,12 +2,12 @@ using BankApi.Core.Enums;
 
 namespace BankApi.Core.Entities;
 
-public class User
+public class Customer
 {
-    public User(string fullName, string email, string document, DateOnly birthDate, string phone, string password)
+    public Customer(string fullName, string email, string document, DateOnly birthDate, string phone, string password)
     {
         FullName = fullName;
-        Situation = EUserSituation.Active;
+        Situation = ECustomerSituation.Active;
         Email = email;
         Document = document;
         BirthDate = birthDate;
@@ -19,7 +19,7 @@ public class User
 
     public string FullName { get; private set; }
 
-    public EUserSituation Situation { get; }
+    public ECustomerSituation Situation { get; }
 
     public string Email { get; private set; }
 
