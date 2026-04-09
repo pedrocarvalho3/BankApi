@@ -4,14 +4,6 @@ namespace BankApi.Core.Entities;
 
 public class Account
     {
-        public Guid Id { get; private set; }
-        public decimal Balance { get; private set; }
-        public string AccountNumber { get; private set; }
-        public string AgencyNumber { get; private set; }
-        public Guid OwnerId { get; private set; }
-        public EAccountType AccountType { get; private set; }
-        // public List<Transaction> Transactions { get; private set; } = new();
-
         public Account(Guid ownerId, EAccountType accountType)
         {
             if (string.IsNullOrWhiteSpace(ownerId.ToString()))
@@ -23,6 +15,14 @@ public class Account
             AccountNumber = GenerateAccountNumber();
             AgencyNumber = "0001";
         }
+        
+        public Guid Id { get; private set; }
+        public decimal Balance { get; private set; }
+        public string AccountNumber { get; private set; }
+        public string AgencyNumber { get; private set; }
+        public Guid OwnerId { get; private set; }
+        public EAccountType AccountType { get; private set; }
+        // public List<Transaction> Transactions { get; private set; } = new();
         
         private static string GenerateAccountNumber()
         {
