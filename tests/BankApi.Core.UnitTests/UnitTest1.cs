@@ -8,7 +8,7 @@ public class UnitTest1
     [Fact]
     public void Deposit_ShouldIncreaseBalance()
     {
-        var account = new Account("John", EAccountType.Current);
+        var account = new Account(new Guid(), EAccountType.Current);
 
         account.Deposit(100);
 

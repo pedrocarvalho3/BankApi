@@ -1,3 +1,3 @@
 namespace BankApi.Application.Contracts;
 
-public record CreateInternalTransactionRequest(int accountId, decimal amount);
+public record CreateInternalTransactionRequest(Guid accountId, decimal amount);

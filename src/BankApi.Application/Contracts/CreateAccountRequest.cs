@@ -2,4 +2,4 @@ using BankApi.Core.Enums;
 
 namespace BankApi.Application.Contracts;
 
-public record CreateAccountRequest(string Holder, EAccountType AccountType);
+public record CreateAccountRequest(Guid OwnerId, EAccountType AccountType);

@@ -18,7 +18,7 @@ public class AccountRepository : IAccountRepository
         return _dbContext.Accounts.ToList();
     }
 
-    public Account? GetById(int id)
+    public Account? GetById(Guid id)
     {
         return _dbContext.Accounts.FirstOrDefault(acc => acc.Id == id);
     }

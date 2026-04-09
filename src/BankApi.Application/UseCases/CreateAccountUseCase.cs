@@ -16,7 +16,7 @@ public class CreateAccountUseCase : ICreateAccountUseCase
 
     public Account Execute(CreateAccountRequest request)
     {
-        var account = new Account(holder: request.Holder, accountType: request.AccountType);
+        var account = new Account(ownerId: request.OwnerId, accountType: request.AccountType);
 
         _accountRepository.Add(account);
         _accountRepository.SaveChanges();
