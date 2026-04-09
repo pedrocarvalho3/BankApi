@@ -16,6 +16,8 @@ public class Account
             AgencyNumber = "0001";
         }
         
+        private Account() { }
+        
         public Guid Id { get; private set; }
         public decimal Balance { get; private set; }
         public string AccountNumber { get; private set; }

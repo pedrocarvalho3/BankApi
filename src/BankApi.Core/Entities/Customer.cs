@@ -15,19 +15,21 @@ public class Customer
         Password = password;
     }
     
+    private Customer() { } 
+
     public Guid Id { get; private set; }
 
     public string FullName { get; private set; }
 
-    public ECustomerSituation Situation { get; }
+    public ECustomerSituation Situation { get; private set; }
 
     public string Email { get; private set; }
 
-    public string Document { get; }
+    public string Document { get; private set; }
 
-    public DateOnly BirthDate { get; }
+    public DateOnly BirthDate { get; private set; }
 
     public string Phone { get; private set; }
 
-    public string Password { get; }
+    public string Password { get; private set; }
 }
