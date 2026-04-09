@@ -16,6 +16,7 @@ public static class InfrastructureModule
             opt.UseNpgsql(connectionString));
 
         services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
         
         return services;
     }
