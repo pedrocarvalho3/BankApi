@@ -13,6 +13,7 @@ public static class ApplicationModule
         services.AddScoped<IGetAllAccountsUseCase, GetAllAccountsUseCase>();
         services.AddScoped<IRegisterCustomerUseCase, RegisterCustomerUseCase>();
         services.AddScoped<IWithdrawUseCase, WithdrawUseCase>();
+        services.AddScoped<IRegisterCustomerUseCase, RegisterCustomerUseCase>();
 
         return services;
     }

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "yjRNIUFB0oo=",
+  "dgSpecHash": "kqM6rjQhHE8=",
   "success": true,
   "projectFilePath": "/Users/user/RiderProjects/BankApi/tests/BankApi.Core.UnitTests/BankApi.Core.UnitTests.csproj",
   "expectedPackageFiles": [
     "/Users/user/.nuget/packages/coverlet.collector/6.0.0/coverlet.collector.6.0.0.nupkg.sha512",
     "/Users/user/.nuget/packages/microsoft.codecoverage/17.8.0/microsoft.codecoverage.17.8.0.nupkg.sha512",
+    "/Users/user/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/10.0.0/microsoft.extensions.dependencyinjection.abstractions.10.0.0.nupkg.sha512",
     "/Users/user/.nuget/packages/microsoft.net.test.sdk/17.8.0/microsoft.net.test.sdk.17.8.0.nupkg.sha512",
     "/Users/user/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "/Users/user/.nuget/packages/microsoft.testplatform.objectmodel/17.8.0/microsoft.testplatform.objectmodel.17.8.0.nupkg.sha512",

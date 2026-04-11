@@ -100,3 +100,6 @@
 /Users/user/RiderProjects/BankApi/tests/BankApi.Core.UnitTests/obj/Debug/net10.0/BankApi.Core.UnitTests.pdb
 /Users/user/RiderProjects/BankApi/tests/BankApi.Core.UnitTests/obj/Debug/net10.0/BankApi.Core.UnitTests.genruntimeconfig.cache
 /Users/user/RiderProjects/BankApi/tests/BankApi.Core.UnitTests/obj/Debug/net10.0/ref/BankApi.Core.UnitTests.dll
+/Users/user/RiderProjects/BankApi/tests/BankApi.Core.UnitTests/bin/Debug/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/user/RiderProjects/BankApi/tests/BankApi.Core.UnitTests/bin/Debug/net10.0/BankApi.Application.dll
+/Users/user/RiderProjects/BankApi/tests/BankApi.Core.UnitTests/bin/Debug/net10.0/BankApi.Application.pdb
