@@ -1,5 +1,7 @@
 using BankApi.Core.Interfaces.Repositories;
+using BankApi.Core.Interfaces.UnitOfWork;
 using BankApi.Infrastructure.Repositories;
+using BankApi.Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,7 @@ public static class InfrastructureModule
 
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<ICustomerAccountUnitOfWork, CustomerAccountUnitOfWork>();
         
         return services;
     }

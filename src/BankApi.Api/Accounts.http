@@ -39,3 +39,14 @@ Content-Type: application/json
 }
 
 ###
+
+POST http://localhost:5015/customers
+Content-Type: application/json
+
+{
+  "fullName": "Pedro",
+  "email": "teste@gmail.com",
+  "document": "
+}
+
+###
