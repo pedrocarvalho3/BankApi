@@ -4,8 +4,8 @@ namespace BankApi.Core.Interfaces.Repositories;
 
 public interface IAccountRepository
 {
-    List<Account> GetAll();
-    Account? GetById(Guid id);
-    void Add(Account account);
-    void SaveChanges();
+    Task<List<Account>> GetAllAsync();
+    Task<Account?> GetByIdAsync(Guid id);
+    Task AddAsync(Account account);
+    Task SaveChangesAsync();
 }

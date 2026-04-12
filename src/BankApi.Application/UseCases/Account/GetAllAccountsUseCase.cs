@@ -13,8 +13,8 @@ public class GetAllAccountsUseCase : IGetAllAccountsUseCase
         _accountRepository = accountRepository;
     }
 
-    public List<Account> Execute()
+    public async Task<List<Account>> ExecuteAsync()
     {
-        return _accountRepository.GetAll();
+        return await _accountRepository.GetAllAsync();
     }
 }

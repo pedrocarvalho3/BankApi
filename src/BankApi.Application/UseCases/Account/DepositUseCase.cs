@@ -14,15 +14,15 @@ public class DepositUseCase : IDepositUseCase
         _accountRepository = accountRepository;
     }
 
-    public Account Execute(CreateInternalTransactionRequest request)
+    public async Task<Account> ExecuteAsync(CreateInternalTransactionRequest request)
     {
-        var account = _accountRepository.GetById(request.accountId);
+        var account = await _accountRepository.GetByIdAsync(request.accountId);
 
         if (account is null)
             throw new ArgumentException($"Account with id {request.accountId} does not exist");
 
         account.Deposit(request.amount);
-        _accountRepository.SaveChanges();
+        await _accountRepository.SaveChangesAsync();
 
         return account;
     }

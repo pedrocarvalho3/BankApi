@@ -5,5 +5,5 @@ namespace BankApi.Application.UseCases.Interfaces;
 
 public interface IWithdrawUseCase
 {
-    Account Execute(CreateInternalTransactionRequest request);
+    Task<Account> ExecuteAsync(CreateInternalTransactionRequest request);
 }

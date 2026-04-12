@@ -14,12 +14,12 @@ public class CreateAccountUseCase : ICreateAccountUseCase
         _accountRepository = accountRepository;
     }
 
-    public Account Execute(CreateAccountRequest request)
+    public async Task<Account> ExecuteAsync(CreateAccountRequest request)
     {
         var account = new Account(ownerId: request.OwnerId, accountType: request.AccountType);
 
-        _accountRepository.Add(account);
-        _accountRepository.SaveChanges();
+        await _accountRepository.AddAsync(account);
+        await _accountRepository.SaveChangesAsync();
         return account;
     }
 }

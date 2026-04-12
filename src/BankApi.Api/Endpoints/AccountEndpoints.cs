@@ -9,28 +9,28 @@ public static class AccountEndpoints
     {
         var group = app.MapGroup("/accounts");
 
-        group.MapGet("/", (IGetAllAccountsUseCase useCase) =>
+        group.MapGet("/", async (IGetAllAccountsUseCase useCase) =>
         {
-            var accounts = useCase.Execute();
+            var accounts = await useCase.ExecuteAsync();
             return Results.Ok(accounts);
         });
 
-        group.MapPost("/", (CreateAccountRequest request, ICreateAccountUseCase useCase) =>
+        group.MapPost("/", async (CreateAccountRequest request, ICreateAccountUseCase useCase) =>
         {
-            var account = useCase.Execute(request);
+            var account = await useCase.ExecuteAsync(request);
             return Results.Created($"/accounts/{account.Id}", account);
         });
 
-        group.MapPost("/deposit", (CreateInternalTransactionRequest request, IDepositUseCase useCase) =>
+        group.MapPost("/deposit", async (CreateInternalTransactionRequest request, IDepositUseCase useCase) =>
         {
-            var account = useCase.Execute(request);
+            var account = await useCase.ExecuteAsync(request);
 
             return Results.Ok(account);
         });
 
-        group.MapPost("/withdraw", (CreateInternalTransactionRequest request, IWithdrawUseCase useCase) =>
+        group.MapPost("/withdraw", async (CreateInternalTransactionRequest request, IWithdrawUseCase useCase) =>
         {
-            var account = useCase.Execute(request);
+            var account = await useCase.ExecuteAsync(request);
             return Results.Ok(account);
         });
     }

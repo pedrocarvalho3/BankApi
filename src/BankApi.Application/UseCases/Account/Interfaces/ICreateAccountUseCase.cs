@@ -5,5 +5,5 @@ namespace BankApi.Application.UseCases.Interfaces;
 
 public interface ICreateAccountUseCase
 {
-    Account Execute(CreateAccountRequest request);
+    Task<Account> ExecuteAsync(CreateAccountRequest request);
 }

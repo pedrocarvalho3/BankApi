@@ -9,13 +9,13 @@ namespace BankApi.Core.UnitTests;
 public class CreateAccountUseCaseTests
 {
     [Fact]
-    public void Execute_ShouldCreateAccount()
+    public async Task ExecuteAsync_ShouldCreateAccount()
     {
         var repository = new FakeAccountRepository();
         var useCase = new CreateAccountUseCase(repository);
         var request = new CreateAccountRequest(Guid.NewGuid(), EAccountType.Current);
         
-        var account = useCase.Execute(request);
+        var account = await useCase.ExecuteAsync(request);
         
         Assert.Equal(request.OwnerId, account.OwnerId);
         Assert.Equal(request.AccountType, account.AccountType);
@@ -28,15 +28,24 @@ public class CreateAccountUseCaseTests
         public Account? ExistingById { get; set; }
         public Account? AddedAccount { get; set; }
         public bool SaveChangesCalled { get; private set; }
-        public List<Account> GetAll()
+        
+        public Task<List<Account>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return Task.FromResult(new List<Account>());
         }
 
-        public Account? GetById(Guid id) => ExistingById;
+        public Task<Account?> GetByIdAsync(Guid id) => Task.FromResult(ExistingById);
 
-        public void Add(Account account) => AddedAccount = account;
+        public Task AddAsync(Account account)
+        {
+            AddedAccount = account;
+            return Task.CompletedTask;
+        }
 
-        public void SaveChanges() => SaveChangesCalled = true;
+        public Task SaveChangesAsync()
+        {
+            SaveChangesCalled = true;
+            return Task.CompletedTask;
+        }
     }
 }

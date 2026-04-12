@@ -1,6 +1,7 @@
 using BankApi.Core.Entities;
 using BankApi.Core.Interfaces.Repositories;
 using BankApi.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankApi.Infrastructure.Repositories;
 
@@ -13,23 +14,23 @@ public class AccountRepository : IAccountRepository
         _dbContext = dbContext;
     }
 
-    public List<Account> GetAll()
+    public async Task<List<Account>> GetAllAsync()
     {
-        return _dbContext.Accounts.ToList();
+        return await _dbContext.Accounts.ToListAsync();
     }
 
-    public Account? GetById(Guid id)
+    public async Task<Account?> GetByIdAsync(Guid id)
     {
-        return _dbContext.Accounts.FirstOrDefault(acc => acc.Id == id);
+        return await _dbContext.Accounts.FirstOrDefaultAsync(acc => acc.Id == id);
     }
 
-    public void Add(Account account)
+    public async Task AddAsync(Account account)
     {
-        _dbContext.Accounts.Add(account);
+        await _dbContext.Accounts.AddAsync(account);
     }
 
-    public void SaveChanges()
+    public async Task SaveChangesAsync()
     {
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
     }
 }
