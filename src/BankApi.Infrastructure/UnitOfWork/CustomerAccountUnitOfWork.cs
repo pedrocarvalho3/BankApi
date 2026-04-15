@@ -1,3 +1,4 @@
+using BankApi.Core;
 using BankApi.Core.Interfaces.Repositories;
 using BankApi.Core.Interfaces.UnitOfWork;
 
@@ -10,15 +11,18 @@ public class CustomerAccountUnitOfWork : ICustomerAccountUnitOfWork
     public CustomerAccountUnitOfWork(
         AppDbContext dbContext,
         ICustomerRepository customerRepository,
-        IAccountRepository accountRepository)
+        IAccountRepository accountRepository,
+        IPasswordHasher passwordHasher)
     {
         _dbContext = dbContext;
         Customers = customerRepository;
         Accounts = accountRepository;
+        PasswordHasher = passwordHasher;
     }
 
     public ICustomerRepository Customers { get; }
     public IAccountRepository Accounts { get; }
+    public IPasswordHasher PasswordHasher { get; }
 
     public async Task SaveChangesAsync()
     {

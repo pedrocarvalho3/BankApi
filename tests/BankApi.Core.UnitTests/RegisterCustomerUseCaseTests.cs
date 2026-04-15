@@ -34,6 +34,7 @@ public class RegisterCustomerUseCaseTests
         Assert.NotNull(customerRepository.AddedCustomer);
         Assert.NotNull(accountRepository.AddedAccount);
         Assert.Equal(customer.Id, accountRepository.AddedAccount!.OwnerId);
+        Assert.Equal("hashed-secret", customer.Password);
         Assert.True(unitOfWork.SaveChangesCalled);
     }
 
@@ -107,10 +108,12 @@ public class RegisterCustomerUseCaseTests
         {
             Customers = customers;
             Accounts = accounts;
+            PasswordHasher = new FakePasswordHasher();
         }
 
         public ICustomerRepository Customers { get; }
         public IAccountRepository Accounts { get; }
+        public IPasswordHasher PasswordHasher { get; }
         public bool SaveChangesCalled { get; private set; }
 
         public Task SaveChangesAsync()
@@ -152,5 +155,18 @@ public class RegisterCustomerUseCaseTests
         }
 
         public Task SaveChangesAsync() => Task.CompletedTask;
+    }
+
+    private sealed class FakePasswordHasher : IPasswordHasher
+    {
+        public string Hash(string password)
+        {
+            return $"hashed-{password}";
+        }
+
+        public bool Verify(string password, string passwordHash)
+        {
+            return passwordHash == $"hashed-{password}";
+        }
     }
 }

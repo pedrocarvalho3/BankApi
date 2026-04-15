@@ -6,5 +6,6 @@ public interface ICustomerAccountUnitOfWork
 {
     ICustomerRepository Customers { get; }
     IAccountRepository Accounts { get; }
+    IPasswordHasher PasswordHasher { get; }
     Task SaveChangesAsync();
 }

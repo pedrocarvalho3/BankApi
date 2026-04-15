@@ -21,6 +21,8 @@ public class RegisterCustomerUseCase : IRegisterCustomerUseCase
 
         if (await _unitOfWork.Customers.GetByDocumentAsync(request.Document) is not null)
             throw new InvalidOperationException("A customer with this document already exists.");
+        
+        var passwordHash = _unitOfWork.PasswordHasher.Hash(request.Password);
 
         var customer = new Customer(
             fullName: request.FullName,
@@ -28,7 +30,7 @@ public class RegisterCustomerUseCase : IRegisterCustomerUseCase
             document: request.Document,
             birthDate: request.BirthDate,
             phone: request.Phone,
-            password: request.Password
+            password: passwordHash
         );
 
         await _unitOfWork.Customers.AddAsync(customer);

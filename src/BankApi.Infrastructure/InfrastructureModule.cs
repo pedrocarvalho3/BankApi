@@ -1,6 +1,8 @@
+using BankApi.Core;
 using BankApi.Core.Interfaces.Repositories;
 using BankApi.Core.Interfaces.UnitOfWork;
 using BankApi.Infrastructure.Repositories;
+using BankApi.Infrastructure.Security;
 using BankApi.Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,7 @@ public static class InfrastructureModule
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<ICustomerAccountUnitOfWork, CustomerAccountUnitOfWork>();
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
         
         return services;
     }
