@@ -15,12 +15,6 @@ public static class AccountEndpoints
             return Results.Ok(accounts);
         });
 
-        group.MapPost("/", async (CreateAccountRequest request, ICreateAccountUseCase useCase) =>
-        {
-            var account = await useCase.ExecuteAsync(request);
-            return Results.Created($"/accounts/{account.Id}", account);
-        });
-
         group.MapPost("/deposit", async (CreateInternalTransactionRequest request, IDepositUseCase useCase) =>
         {
             var account = await useCase.ExecuteAsync(request);
