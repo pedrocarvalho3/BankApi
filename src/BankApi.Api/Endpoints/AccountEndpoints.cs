@@ -7,7 +7,7 @@ public static class AccountEndpoints
 {
     public static void MapAccountEndpoints(this WebApplication app)
     {
-        var group = app.MapGroup("/accounts");
+        var group = app.MapGroup("/accounts").RequireAuthorization();
 
         group.MapGet("/", async (IGetAllAccountsUseCase useCase) =>
         {

@@ -3,9 +3,9 @@ using BankApi.Application.UseCases.Interfaces;
 
 namespace BankApi.Api.Endpoints.Customer;
 
-public static class CreateUserEndpoint
+public static class CreateCustomerEndpoint
 {
-    public static void MapCreateUserEndpoint(this WebApplication app)
+    public static void MapCreateCustomerEndpoint(this WebApplication app)
     {
         var group = app.MapGroup("/customers");
 

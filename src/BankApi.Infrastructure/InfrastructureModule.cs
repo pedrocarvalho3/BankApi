@@ -23,6 +23,7 @@ public static class InfrastructureModule
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<ICustomerAccountUnitOfWork, CustomerAccountUnitOfWork>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
+        services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
         
         return services;
     }

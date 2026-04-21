@@ -9,11 +9,16 @@ public class AuthenticateCustomerUseCase : IAuthenticateCustomerUseCase
 {
     private readonly ICustomerRepository _customerRepository;
     private readonly IPasswordHasher _passwordHasher;
+    private readonly ITokenGenerator _tokenGenerator;
 
-    public AuthenticateCustomerUseCase(ICustomerRepository customerRepository, IPasswordHasher passwordHasher)
+    public AuthenticateCustomerUseCase(
+        ICustomerRepository customerRepository,
+        IPasswordHasher passwordHasher,
+        ITokenGenerator tokenGenerator)
     {
         _customerRepository =  customerRepository;
         _passwordHasher = passwordHasher;
+        _tokenGenerator = tokenGenerator;
     }
     
     public async Task<string> ExecuteAsync(AuthenticateCustomerRequest request)
@@ -26,6 +31,6 @@ public class AuthenticateCustomerUseCase : IAuthenticateCustomerUseCase
         if (_passwordHasher.Verify(request.Password, customer.Password) == false)
             throw new ArgumentException("Invalid Credentials.");
 
-        return customer.Email;
+        return _tokenGenerator.Generate(customer.Id, customer.Email);
     }
 }

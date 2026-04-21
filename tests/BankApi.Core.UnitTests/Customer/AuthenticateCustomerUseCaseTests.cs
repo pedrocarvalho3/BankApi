@@ -1,5 +1,6 @@
 using BankApi.Application.Contracts;
 using BankApi.Application.UseCases;
+using BankApi.Core;
 using BankApi.Core.Entities;
 using BankApi.Core.Interfaces.Repositories;
 
@@ -26,14 +27,15 @@ public class AuthenticateCustomerUseCaseTests
 
         var passwordHasher = new FakePasswordHasher();
         
-        var useCase = new AuthenticateCustomerUseCase(customerRepository, passwordHasher);
+        var tokenGenerator = new FakeTokenGenerator();
+
+        var useCase = new AuthenticateCustomerUseCase(customerRepository, passwordHasher, tokenGenerator);
 
         var request = new AuthenticateCustomerRequest("john@email.com", "secret");
 
         var result = await useCase.ExecuteAsync(request);
         
-        Assert.NotNull(result);
-        Assert.Equal(fakeCustomer.Email, result);
+        Assert.Equal("fake-jwt-token", result);
     }
     
     private sealed class FakeCustomerRepository : ICustomerRepository
@@ -64,6 +66,14 @@ public class AuthenticateCustomerUseCaseTests
         public bool Verify(string password, string passwordHash)
         {
             return passwordHash == $"hashed-{password}";
+        }
+    }
+
+    private sealed class FakeTokenGenerator : ITokenGenerator
+    {
+        public string Generate(Guid customerId, string email)
+        {
+            return "fake-jwt-token";
         }
     }
 }
