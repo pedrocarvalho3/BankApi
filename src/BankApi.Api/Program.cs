@@ -1,6 +1,5 @@
 using System.Text;
 using BankApi.Api.Endpoints;
-using BankApi.Api.Endpoints.Customer;
 using BankApi.Application.DependencyInjection;
 using BankApi.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,8 +49,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapAccountEndpoints();
-app.MapCreateCustomerEndpoint();
-app.MapAuthenticateCustomerEndpoint();
+app.MapApiEndpoints();
 
 app.Run();
