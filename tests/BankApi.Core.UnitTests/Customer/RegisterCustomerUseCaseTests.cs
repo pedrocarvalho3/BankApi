@@ -4,6 +4,7 @@ using BankApi.Core.Entities;
 using BankApi.Core.Enums;
 using BankApi.Core.Interfaces.Repositories;
 using BankApi.Core.Interfaces.UnitOfWork;
+using BankAccount = BankApi.Core.Entities.Account;
 
 namespace BankApi.Core.UnitTests;
 
@@ -143,12 +144,12 @@ public class RegisterCustomerUseCaseTests
 
     private sealed class FakeAccountRepository : IAccountRepository
     {
-        public Account? AddedAccount { get; private set; }
+        public BankAccount? AddedAccount { get; private set; }
 
-        public Task<List<Account>> GetAllAsync() => Task.FromResult(new List<Account>());
-        public Task<Account?> GetByIdAsync(Guid id) => Task.FromResult<Account?>(null);
+        public Task<List<BankAccount>> GetAllAsync() => Task.FromResult(new List<BankAccount>());
+        public Task<BankAccount?> GetByIdAsync(Guid id) => Task.FromResult<BankAccount?>(null);
 
-        public Task AddAsync(Account account)
+        public Task AddAsync(BankAccount account)
         {
             AddedAccount = account;
             return Task.CompletedTask;
