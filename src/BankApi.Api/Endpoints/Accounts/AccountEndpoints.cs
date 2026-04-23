@@ -23,7 +23,7 @@ public static class AccountEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapPost("/deposit", async (CreateInternalTransactionRequest request, IDepositUseCase useCase) =>
+        group.MapPost("/deposit", async (CreateInternalTransactionRequest request, ICreateDepositUseCase useCase) =>
             {
                 var account = await useCase.ExecuteAsync(request);
                 return Results.Ok(account);
@@ -35,7 +35,7 @@ public static class AccountEndpoints
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapPost("/withdraw", async (CreateInternalTransactionRequest request, IWithdrawUseCase useCase) =>
+        group.MapPost("/withdraw", async (CreateInternalTransactionRequest request, ICreateWithdrawUseCase useCase) =>
             {
                 var account = await useCase.ExecuteAsync(request);
                 return Results.Ok(account);

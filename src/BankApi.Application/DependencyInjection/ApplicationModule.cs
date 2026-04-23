@@ -9,10 +9,10 @@ public static class ApplicationModule
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddScoped<IAuthenticateCustomerUseCase, AuthenticateCustomerUseCase>();
-        services.AddScoped<IDepositUseCase, DepositUseCase>();
+        services.AddScoped<ICreateDepositUseCase, CreateCreateDepositUseCase>();
         services.AddScoped<IGetAllAccountsUseCase, GetAllAccountsUseCase>();
         services.AddScoped<IRegisterCustomerUseCase, RegisterCustomerUseCase>();
-        services.AddScoped<IWithdrawUseCase, WithdrawUseCase>();
+        services.AddScoped<ICreateWithdrawUseCase, CreateCreateWithdrawUseCase>();
 
         return services;
     }

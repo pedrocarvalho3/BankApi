@@ -5,11 +5,11 @@ using BankApi.Core.Interfaces.Repositories;
 
 namespace BankApi.Application.UseCases;
 
-public class WithdrawUseCase : IWithdrawUseCase
+public class CreateCreateDepositUseCase : ICreateDepositUseCase
 {
     private readonly IAccountRepository _accountRepository;
 
-    public WithdrawUseCase(IAccountRepository accountRepository)
+    public CreateCreateDepositUseCase(IAccountRepository accountRepository)
     {
         _accountRepository = accountRepository;
     }
@@ -21,8 +21,7 @@ public class WithdrawUseCase : IWithdrawUseCase
         if (account is null)
             throw new ArgumentException($"Account with id {request.accountId} does not exist");
 
-        account.Withdraw(request.amount);
-
+        account.Deposit(request.amount);
         await _accountRepository.SaveChangesAsync();
 
         return account;

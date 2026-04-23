@@ -3,7 +3,7 @@ using BankApi.Core.Entities;
 
 namespace BankApi.Application.UseCases.Interfaces;
 
-public interface IDepositUseCase
+public interface ICreateWithdrawUseCase
 {
     Task<Account> ExecuteAsync(CreateInternalTransactionRequest request);
 }
