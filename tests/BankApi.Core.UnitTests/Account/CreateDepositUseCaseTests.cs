@@ -35,6 +35,22 @@ public class CreateDepositUseCaseTests
         Assert.Equal(100, result.Balance);
     }
     
+    [Fact]
+    public async Task ExecuteAsync_ShouldReturnArgumentExceptionIfAccountNotExists()
+    {
+        var accountRepository = new FakeAccountRepository();
+        
+        var useCase = new CreateDepositUseCase(accountRepository);
+
+        var invalidAccountId = Guid.NewGuid();
+            
+        var request = new CreateInternalTransactionRequest(invalidAccountId, 100);
+        
+        var ex = await Assert.ThrowsAsync<ArgumentException>(async () => await useCase.ExecuteAsync(request));
+        
+        Assert.Equal($"Account with id {invalidAccountId} does not exist", ex.Message);
+    }
+    
     private sealed class FakeAccountRepository : IAccountRepository
     {
         public BankAccount? AddedAccount { get; set; }
