@@ -12,6 +12,7 @@ public static class ApplicationModule
         services.AddScoped<ICreateDepositUseCase, CreateDepositUseCase>();
         services.AddScoped<IGetAllAccountsUseCase, GetAllAccountsUseCase>();
         services.AddScoped<IRegisterCustomerUseCase, RegisterCustomerUseCase>();
+        services.AddScoped<ICreateTransferUseCase, CreateTransferUseCase>();
         services.AddScoped<ICreateWithdrawUseCase, CreateWithdrawUseCase>();
 
         return services;

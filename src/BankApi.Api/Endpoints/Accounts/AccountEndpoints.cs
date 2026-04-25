@@ -46,5 +46,24 @@ public static class AccountEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapPost("/transfer", async (CreateTransferRequest request, ICreateTransferUseCase useCase) =>
+            {
+                try
+                {
+                    var result = await useCase.ExecuteAsync(request);
+                    return Results.Ok(result);
+                }
+                catch (ArgumentException ex)
+                {
+                    return Results.BadRequest(new { message = ex.Message });
+                }
+            })
+            .WithName("Transfer")
+            .WithSummary("Transfer amount")
+            .WithDescription("Transfers funds between two accounts and records debit/credit transactions.")
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized);
     }
 }
