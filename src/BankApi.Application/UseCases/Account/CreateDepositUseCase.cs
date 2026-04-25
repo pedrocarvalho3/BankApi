@@ -24,9 +24,9 @@ public class CreateDepositUseCase : ICreateDepositUseCase
         account.Deposit(request.amount);
         
         var transaction = Transaction.CreateDeposit(
-            account.Id,
+            request.accountId,
             request.amount,
-            account.Balance + request.amount
+            account.Balance
         );
         
         await _unitOfWork.Transactions.AddAsync(transaction);
