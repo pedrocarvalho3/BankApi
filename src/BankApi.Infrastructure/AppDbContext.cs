@@ -9,5 +9,5 @@ public class AppDbContext : DbContext
         : base(options) { }
     public DbSet<Customer> Customers => Set<Customer>();
     public DbSet<Account> Accounts => Set<Account>();
-    // public DbSet<Transaction> Transactions => Set<Transaction>();
+    public DbSet<Transaction> Transactions => Set<Transaction>();
 }

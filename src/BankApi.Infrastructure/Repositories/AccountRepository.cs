@@ -1,6 +1,5 @@
 using BankApi.Core.Entities;
 using BankApi.Core.Interfaces.Repositories;
-using BankApi.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankApi.Infrastructure.Repositories;
