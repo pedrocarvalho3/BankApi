@@ -22,6 +22,8 @@ public static class InfrastructureModule
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<ICustomerAccountUnitOfWork, CustomerAccountUnitOfWork>();
+        services.AddScoped<IAccountTransactionUnitOfWork, AccountTransactionUnitOfWork>();
+        services.AddScoped<ITransactionRepository, TransactionRepository>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
         
