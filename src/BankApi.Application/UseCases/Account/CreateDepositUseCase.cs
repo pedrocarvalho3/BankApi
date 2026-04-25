@@ -1,29 +1,38 @@
 using BankApi.Application.Contracts;
 using BankApi.Application.UseCases.Interfaces;
 using BankApi.Core.Entities;
-using BankApi.Core.Interfaces.Repositories;
+using BankApi.Core.Interfaces.UnitOfWork;
 
 namespace BankApi.Application.UseCases;
 
 public class CreateDepositUseCase : ICreateDepositUseCase
 {
-    private readonly IAccountRepository _accountRepository;
+    private readonly IAccountTransactionUnitOfWork _unitOfWork;
 
-    public CreateDepositUseCase(IAccountRepository accountRepository)
+    public CreateDepositUseCase(IAccountTransactionUnitOfWork unitOfWork)
     {
-        _accountRepository = accountRepository;
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task<Account> ExecuteAsync(CreateInternalTransactionRequest request)
+    public async Task<Transaction> ExecuteAsync(CreateInternalTransactionRequest request)
     {
-        var account = await _accountRepository.GetByIdAsync(request.accountId);
+        var account = await _unitOfWork.Accounts.GetByIdAsync(request.accountId);
 
         if (account is null)
             throw new ArgumentException($"Account with id {request.accountId} does not exist");
 
         account.Deposit(request.amount);
-        await _accountRepository.SaveChangesAsync();
+        
+        var transaction = Transaction.CreateDeposit(
+            account.Id,
+            request.amount,
+            account.Balance + request.amount
+        );
+        
+        await _unitOfWork.Transactions.AddAsync(transaction);
+        
+        await _unitOfWork.SaveChangesAsync();
 
-        return account;
+        return transaction;
     }
 }

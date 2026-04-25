@@ -5,6 +5,7 @@ namespace BankApi.Core.Interfaces.UnitOfWork;
 public interface IAccountTransactionUnitOfWork
 {
     IAccountRepository Accounts { get; }
+    ITransactionRepository Transactions { get; }
     
     Task SaveChangesAsync();
 }
