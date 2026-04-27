@@ -2,6 +2,7 @@ using System.Text;
 using BankApi.Api.Endpoints;
 using BankApi.Application.DependencyInjection;
 using BankApi.Infrastructure;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
@@ -51,6 +52,7 @@ builder.Services
         };
     });
 builder.Services.AddAuthorization();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services
     .AddInfrastructure(builder.Configuration)
     .AddApplication();

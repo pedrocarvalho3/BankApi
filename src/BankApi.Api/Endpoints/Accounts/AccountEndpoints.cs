@@ -31,6 +31,7 @@ public static class AccountEndpoints
             .WithName("Deposit")
             .WithSummary("Deposit amount")
             .WithDescription("Deposits funds into an account.")
+            .Validate<CreateInternalTransactionRequest>()
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
@@ -43,6 +44,7 @@ public static class AccountEndpoints
             .WithName("Withdraw")
             .WithSummary("Withdraw amount")
             .WithDescription("Withdraws funds from an account.")
+            .Validate<CreateInternalTransactionRequest>()
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
@@ -62,6 +64,7 @@ public static class AccountEndpoints
             .WithName("Transfer")
             .WithSummary("Transfer amount")
             .WithDescription("Transfers funds between two accounts and records debit/credit transactions.")
+            .Validate<CreateTransferRequest>()
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);

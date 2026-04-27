@@ -26,6 +26,7 @@ public static class CustomerEndpoints
             .WithName("CreateCustomer")
             .WithSummary("Create customer")
             .WithDescription("Registers a new customer and creates the initial account.")
+            .Validate<RegisterCustomerRequest>()
             .Produces(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status409Conflict);
 
@@ -44,6 +45,7 @@ public static class CustomerEndpoints
             .WithName("AuthenticateCustomer")
             .WithSummary("Authenticate customer")
             .WithDescription("Authenticates customer credentials and returns a JWT token.")
+            .Validate<AuthenticateCustomerRequest>()
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
     }
