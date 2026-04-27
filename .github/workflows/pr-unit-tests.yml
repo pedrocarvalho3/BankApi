@@ -1,0 +1,33 @@
+name: PR Unit Tests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: pr-unit-tests-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    name: Build and Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+          cache: true
+
+      - name: Restore solution
+        run: dotnet restore BankApi.sln
+
+      - name: Build solution
+        run: dotnet build BankApi.sln --configuration Release --no-restore
+
+      - name: Run unit tests
+        run: dotnet test tests/BankApi.Core.UnitTests/BankApi.Core.UnitTests.csproj --configuration Release --no-build --verbosity minimal
