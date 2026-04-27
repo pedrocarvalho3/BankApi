@@ -29,6 +29,7 @@ public static class CustomerEndpoints
             .Validate<RegisterCustomerRequest>()
             .Produces(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status409Conflict);
+        
 
         group.MapPost("/authenticate", async (AuthenticateCustomerRequest request, IAuthenticateCustomerUseCase useCase) =>
             {
