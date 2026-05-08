@@ -3,7 +3,7 @@ using BankApi.Core.Entities;
 
 namespace BankApi.Application.UseCases.Interfaces;
 
-public interface IRegisterCustomerUseCase
+public interface IRegisterUserUseCase
 {
-    Task<Customer> ExecuteAsync(RegisterCustomerRequest request);
+    Task<User> ExecuteAsync(RegisterUserRequest request);
 }

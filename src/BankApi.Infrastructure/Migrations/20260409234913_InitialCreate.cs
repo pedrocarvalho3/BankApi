@@ -28,7 +28,7 @@ namespace BankApi.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -42,7 +42,7 @@ namespace BankApi.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
         }
 
@@ -53,7 +53,7 @@ namespace BankApi.Infrastructure.Migrations
                 name: "Accounts");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Users");
         }
     }
 }

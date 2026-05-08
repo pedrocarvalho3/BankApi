@@ -1,6 +1,6 @@
 namespace BankApi.Core.Enums;
 
-public enum ECustomerSituation
+public enum EUserSituation
 {
     Active = 1,
     Inactive = 2

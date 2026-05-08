@@ -8,16 +8,16 @@ using BankAccount = BankApi.Core.Entities.Account;
 
 namespace BankApi.Core.UnitTests;
 
-public class RegisterCustomerUseCaseTests
+public class RegisterUserUseCaseTests
 {
     [Fact]
-    public async Task ExecuteAsync_ShouldRegisterCustomerAndCreateAccount_WhenEmailAndDocumentAreUnique()
+    public async Task ExecuteAsync_ShouldRegisterUserAndCreateAccount_WhenEmailAndDocumentAreUnique()
     {
-        var customerRepository = new FakeCustomerRepository();
+        var userRepository = new FakeUserRepository();
         var accountRepository = new FakeAccountRepository();
-        var unitOfWork = new FakeCustomerAccountUnitOfWork(customerRepository, accountRepository);
-        var useCase = new RegisterCustomerUseCase(unitOfWork);
-        var request = new RegisterCustomerRequest(
+        var unitOfWork = new FakeUserAccountUnitOfWork(userRepository, accountRepository);
+        var useCase = new RegisterUserUseCase(unitOfWork);
+        var request = new RegisterUserRequest(
             FullName: "John Doe",
             Email: "john.doe@email.com",
             Document: "12345678901",
@@ -27,24 +27,24 @@ public class RegisterCustomerUseCaseTests
             AccountType: EAccountType.Current
         );
 
-        var customer = await useCase.ExecuteAsync(request);
+        var user = await useCase.ExecuteAsync(request);
 
-        Assert.Equal(request.FullName, customer.FullName);
-        Assert.Equal(request.Email, customer.Email);
-        Assert.Equal(request.Document, customer.Document);
-        Assert.NotNull(customerRepository.AddedCustomer);
+        Assert.Equal(request.FullName, user.FullName);
+        Assert.Equal(request.Email, user.Email);
+        Assert.Equal(request.Document, user.Document);
+        Assert.NotNull(userRepository.AddedUser);
         Assert.NotNull(accountRepository.AddedAccount);
-        Assert.Equal(customer.Id, accountRepository.AddedAccount!.OwnerId);
-        Assert.Equal("hashed-secret", customer.Password);
+        Assert.Equal(user.Id, accountRepository.AddedAccount!.OwnerId);
+        Assert.Equal("hashed-secret", user.Password);
         Assert.True(unitOfWork.SaveChangesCalled);
     }
 
     [Fact]
     public async Task ExecuteAsync_ShouldThrow_WhenEmailAlreadyExists()
     {
-        var customerRepository = new FakeCustomerRepository
+        var userRepository = new FakeUserRepository
         {
-            ExistingByEmail = new Customer(
+            ExistingByEmail = new User(
                 "Existing",
                 "john.doe@email.com",
                 "11111111111",
@@ -53,9 +53,9 @@ public class RegisterCustomerUseCaseTests
                 "pwd"
             )
         };
-        var unitOfWork = new FakeCustomerAccountUnitOfWork(customerRepository, new FakeAccountRepository());
-        var useCase = new RegisterCustomerUseCase(unitOfWork);
-        var request = new RegisterCustomerRequest(
+        var unitOfWork = new FakeUserAccountUnitOfWork(userRepository, new FakeAccountRepository());
+        var useCase = new RegisterUserUseCase(unitOfWork);
+        var request = new RegisterUserRequest(
             FullName: "John Doe",
             Email: "john.doe@email.com",
             Document: "12345678901",
@@ -67,16 +67,16 @@ public class RegisterCustomerUseCaseTests
 
         var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => useCase.ExecuteAsync(request));
 
-        Assert.Equal("A customer with this email already exists.", ex.Message);
+        Assert.Equal("A user with this email already exists.", ex.Message);
         Assert.False(unitOfWork.SaveChangesCalled);
     }
 
     [Fact]
     public async Task ExecuteAsync_ShouldThrow_WhenDocumentAlreadyExists()
     {
-        var customerRepository = new FakeCustomerRepository
+        var userRepository = new FakeUserRepository
         {
-            ExistingByDocument = new Customer(
+            ExistingByDocument = new User(
                 "Existing",
                 "existing@email.com",
                 "12345678901",
@@ -85,9 +85,9 @@ public class RegisterCustomerUseCaseTests
                 "pwd"
             )
         };
-        var unitOfWork = new FakeCustomerAccountUnitOfWork(customerRepository, new FakeAccountRepository());
-        var useCase = new RegisterCustomerUseCase(unitOfWork);
-        var request = new RegisterCustomerRequest(
+        var unitOfWork = new FakeUserAccountUnitOfWork(userRepository, new FakeAccountRepository());
+        var useCase = new RegisterUserUseCase(unitOfWork);
+        var request = new RegisterUserRequest(
             FullName: "John Doe",
             Email: "john.doe@email.com",
             Document: "12345678901",
@@ -99,20 +99,20 @@ public class RegisterCustomerUseCaseTests
 
         var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => useCase.ExecuteAsync(request));
 
-        Assert.Equal("A customer with this document already exists.", ex.Message);
+        Assert.Equal("A user with this document already exists.", ex.Message);
         Assert.False(unitOfWork.SaveChangesCalled);
     }
 
-    private sealed class FakeCustomerAccountUnitOfWork : ICustomerAccountUnitOfWork
+    private sealed class FakeUserAccountUnitOfWork : IUserAccountUnitOfWork
     {
-        public FakeCustomerAccountUnitOfWork(ICustomerRepository customers, IAccountRepository accounts)
+        public FakeUserAccountUnitOfWork(IUserRepository users, IAccountRepository accounts)
         {
-            Customers = customers;
+            Users = users;
             Accounts = accounts;
             PasswordHasher = new FakePasswordHasher();
         }
 
-        public ICustomerRepository Customers { get; }
+        public IUserRepository Users { get; }
         public IAccountRepository Accounts { get; }
         public IPasswordHasher PasswordHasher { get; }
         public bool SaveChangesCalled { get; private set; }
@@ -124,18 +124,18 @@ public class RegisterCustomerUseCaseTests
         }
     }
 
-    private sealed class FakeCustomerRepository : ICustomerRepository
+    private sealed class FakeUserRepository : IUserRepository
     {
-        public Customer? ExistingByEmail { get; set; }
-        public Customer? ExistingByDocument { get; set; }
-        public Customer? AddedCustomer { get; private set; }
+        public User? ExistingByEmail { get; set; }
+        public User? ExistingByDocument { get; set; }
+        public User? AddedUser { get; private set; }
 
-        public Task<Customer?> GetByEmailAsync(string email) => Task.FromResult(ExistingByEmail);
-        public Task<Customer?> GetByDocumentAsync(string document) => Task.FromResult(ExistingByDocument);
+        public Task<User?> GetByEmailAsync(string email) => Task.FromResult(ExistingByEmail);
+        public Task<User?> GetByDocumentAsync(string document) => Task.FromResult(ExistingByDocument);
 
-        public Task AddAsync(Customer customer)
+        public Task AddAsync(User user)
         {
-            AddedCustomer = customer;
+            AddedUser = user;
             return Task.CompletedTask;
         }
 

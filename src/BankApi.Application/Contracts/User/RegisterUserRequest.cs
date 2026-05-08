@@ -2,7 +2,7 @@ using BankApi.Core.Enums;
 
 namespace BankApi.Application.Contracts;
 
-public record RegisterCustomerRequest(
+public record RegisterUserRequest(
     string FullName,
     string Email,
     string Document,

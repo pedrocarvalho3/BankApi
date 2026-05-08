@@ -1,11 +1,11 @@
 using BankApi.Application.Contracts;
 using FluentValidation;
 
-namespace BankApi.Api.Validators.Customers;
+namespace BankApi.Api.Validators.Users;
 
-public class AuthenticateCustomerRequestValidator : AbstractValidator<AuthenticateCustomerRequest>
+public class AuthenticateUserRequestValidator : AbstractValidator<AuthenticateUserRequest>
 {
-    public AuthenticateCustomerRequestValidator()
+    public AuthenticateUserRequestValidator()
     {
         RuleFor(request => request.Email)
             .NotEmpty()

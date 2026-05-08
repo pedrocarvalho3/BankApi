@@ -4,23 +4,23 @@ using BankApi.Core.Interfaces.UnitOfWork;
 
 namespace BankApi.Infrastructure.UnitOfWork;
 
-public class CustomerAccountUnitOfWork : ICustomerAccountUnitOfWork
+public class UserAccountUnitOfWork : IUserAccountUnitOfWork
 {
     private readonly AppDbContext _dbContext;
 
-    public CustomerAccountUnitOfWork(
+    public UserAccountUnitOfWork(
         AppDbContext dbContext,
-        ICustomerRepository customerRepository,
+        IUserRepository userRepository,
         IAccountRepository accountRepository,
         IPasswordHasher passwordHasher)
     {
         _dbContext = dbContext;
-        Customers = customerRepository;
+        Users = userRepository;
         Accounts = accountRepository;
         PasswordHasher = passwordHasher;
     }
 
-    public ICustomerRepository Customers { get; }
+    public IUserRepository Users { get; }
     public IAccountRepository Accounts { get; }
     public IPasswordHasher PasswordHasher { get; }
 

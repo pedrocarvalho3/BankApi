@@ -50,7 +50,7 @@ namespace BankApi.Infrastructure.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("BankApi.Core.Entities.Customer", b =>
+            modelBuilder.Entity("BankApi.Core.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace BankApi.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BankApi.Core.Entities.Transaction", b =>

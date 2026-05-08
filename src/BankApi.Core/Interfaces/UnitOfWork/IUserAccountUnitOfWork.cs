@@ -2,9 +2,9 @@ using BankApi.Core.Interfaces.Repositories;
 
 namespace BankApi.Core.Interfaces.UnitOfWork;
 
-public interface ICustomerAccountUnitOfWork
+public interface IUserAccountUnitOfWork
 {
-    ICustomerRepository Customers { get; }
+    IUserRepository Users { get; }
     IAccountRepository Accounts { get; }
     IPasswordHasher PasswordHasher { get; }
     Task SaveChangesAsync();

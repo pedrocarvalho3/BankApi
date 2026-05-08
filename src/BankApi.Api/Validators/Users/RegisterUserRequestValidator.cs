@@ -1,11 +1,11 @@
 using BankApi.Application.Contracts;
 using FluentValidation;
 
-namespace BankApi.Api.Validators.Customers;
+namespace BankApi.Api.Validators.Users;
 
-public class RegisterCustomerRequestValidator : AbstractValidator<RegisterCustomerRequest>
+public class RegisterUserRequestValidator : AbstractValidator<RegisterUserRequest>
 {
-    public RegisterCustomerRequestValidator()
+    public RegisterUserRequestValidator()
     {
         RuleFor(request => request.FullName)
             .NotEmpty()

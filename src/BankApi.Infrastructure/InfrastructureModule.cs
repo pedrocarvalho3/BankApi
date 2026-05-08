@@ -20,8 +20,8 @@ public static class InfrastructureModule
             opt.UseNpgsql(connectionString));
 
         services.AddScoped<IAccountRepository, AccountRepository>();
-        services.AddScoped<ICustomerRepository, CustomerRepository>();
-        services.AddScoped<ICustomerAccountUnitOfWork, CustomerAccountUnitOfWork>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUserAccountUnitOfWork, UserAccountUnitOfWork>();
         services.AddScoped<IAccountTransactionUnitOfWork, AccountTransactionUnitOfWork>();
         services.AddScoped<ITransactionRepository, TransactionRepository>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
