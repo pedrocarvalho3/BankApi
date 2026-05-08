@@ -31,7 +31,7 @@ public static class UserEndpoints
             .Produces(StatusCodes.Status409Conflict);
         
 
-        group.MapPost("/authenticate", async (AuthenticateUserRequest request, IAuthenticateUserUseCase useCase) =>
+        group.MapPost("/auth/login", async (AuthenticateUserRequest request, IAuthenticateUserUseCase useCase) =>
             {
                 try
                 {
