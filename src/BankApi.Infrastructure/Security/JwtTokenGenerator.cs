@@ -16,7 +16,7 @@ public class JwtTokenGenerator : ITokenGenerator
         _configuration = configuration;
     }
 
-    public string Generate(Guid customerId, string email)
+    public string Generate(Guid userId, string email)
     {
         var key = _configuration["Jwt:Key"]
                   ?? throw new InvalidOperationException("Jwt:Key configuration is missing.");
@@ -30,7 +30,7 @@ public class JwtTokenGenerator : ITokenGenerator
 
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, customerId.ToString()),
+            new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
             new Claim(JwtRegisteredClaimNames.Email, email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };

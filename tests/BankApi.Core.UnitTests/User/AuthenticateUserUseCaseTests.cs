@@ -6,12 +6,12 @@ using BankApi.Core.Interfaces.Repositories;
 
 namespace BankApi.Core.UnitTests;
 
-public class AuthenticateCustomerUseCaseTests
+public class AuthenticateUserUseCaseTests
 {
     [Fact]
-    public async Task ExecuteAsync_ShouldAuthenticateCustomer()
+    public async Task ExecuteAsync_ShouldAuthenticateUser()
     {
-        var fakeCustomer = new Customer(
+        var fakeUser = new User(
             "John Doe",
             "john@email.com",
             "12345678901",
@@ -20,36 +20,36 @@ public class AuthenticateCustomerUseCaseTests
             "hashed-secret"
         );
 
-        var customerRepository = new FakeCustomerRepository
+        var userRepository = new FakeUserRepository
         {
-            ExistingByEmail = fakeCustomer,
+            ExistingByEmail = fakeUser,
         };
 
         var passwordHasher = new FakePasswordHasher();
         
         var tokenGenerator = new FakeTokenGenerator();
 
-        var useCase = new AuthenticateCustomerUseCase(customerRepository, passwordHasher, tokenGenerator);
+        var useCase = new AuthenticateUserUseCase(userRepository, passwordHasher, tokenGenerator);
 
-        var request = new AuthenticateCustomerRequest("john@email.com", "secret");
+        var request = new AuthenticateUserRequest("john@email.com", "secret");
 
         var result = await useCase.ExecuteAsync(request);
         
         Assert.Equal("fake-jwt-token", result);
     }
     
-    private sealed class FakeCustomerRepository : ICustomerRepository
+    private sealed class FakeUserRepository : IUserRepository
     {
-        public Customer? ExistingByEmail { get; set; }
-        public Customer? ExistingByDocument { get; set; }
-        public Customer? AddedCustomer { get; private set; }
+        public User? ExistingByEmail { get; set; }
+        public User? ExistingByDocument { get; set; }
+        public User? AddedUser { get; private set; }
 
-        public Task<Customer?> GetByEmailAsync(string email) => Task.FromResult(ExistingByEmail);
-        public Task<Customer?> GetByDocumentAsync(string document) => Task.FromResult(ExistingByDocument);
+        public Task<User?> GetByEmailAsync(string email) => Task.FromResult(ExistingByEmail);
+        public Task<User?> GetByDocumentAsync(string document) => Task.FromResult(ExistingByDocument);
 
-        public Task AddAsync(Customer customer)
+        public Task AddAsync(User user)
         {
-            AddedCustomer = customer;
+            AddedUser = user;
             return Task.CompletedTask;
         }
 
@@ -71,7 +71,7 @@ public class AuthenticateCustomerUseCaseTests
 
     private sealed class FakeTokenGenerator : ITokenGenerator
     {
-        public string Generate(Guid customerId, string email)
+        public string Generate(Guid userId, string email)
         {
             return "fake-jwt-token";
         }

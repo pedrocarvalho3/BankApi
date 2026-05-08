@@ -1,6 +1,6 @@
 namespace BankApi.Application.Contracts;
 
-public record AuthenticateCustomerRequest(
+public record AuthenticateUserRequest(
     string Email,
     string Password
     );
