@@ -2,5 +2,5 @@ namespace BankApi.Core;
 
 public interface ITokenGenerator
 {
-    string Generate(Guid userId, string email);
+    string Generate(Guid userId, Guid accountId, string email);
 }
