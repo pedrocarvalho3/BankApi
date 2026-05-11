@@ -22,9 +22,7 @@ public class CreateDepositUseCaseTests
         var unitOfWork = new FakeAccountTransactionUnitOfWork(accountRepository, transactionRepository);
         var useCase = new CreateDepositUseCase(unitOfWork);
 
-        var request = new CreateInternalTransactionRequest(accountId, 100);
-
-        var result = await useCase.ExecuteAsync(request);
+        var result = await useCase.ExecuteAsync(100, accountId);
 
         Assert.NotNull(result);
         Assert.Equal(ETransactionType.Deposit, result.TransactionType);
@@ -42,9 +40,8 @@ public class CreateDepositUseCaseTests
         var useCase = new CreateDepositUseCase(unitOfWork);
 
         var invalidAccountId = Guid.NewGuid();
-        var request = new CreateInternalTransactionRequest(invalidAccountId, 100);
 
-        var ex = await Assert.ThrowsAsync<ArgumentException>(() => useCase.ExecuteAsync(request));
+        var ex = await Assert.ThrowsAsync<ArgumentException>(() => useCase.ExecuteAsync(100, invalidAccountId));
 
         Assert.Equal($"Account with id {invalidAccountId} does not exist", ex.Message);
         Assert.False(unitOfWork.SaveChangesCalled);
@@ -75,6 +72,11 @@ public class CreateDepositUseCaseTests
 
         public Task<List<BankAccount>> GetAllAsync() => Task.FromResult(new List<BankAccount>());
         public Task<BankAccount?> GetByIdAsync(Guid id) => Task.FromResult(ExistingById);
+        public Task<BankAccount?> GetByOwnerIdAsync(Guid ownerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task AddAsync(BankAccount account) => Task.CompletedTask;
         public Task SaveChangesAsync() => Task.CompletedTask;
     }

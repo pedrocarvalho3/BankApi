@@ -5,5 +5,5 @@ namespace BankApi.Application.UseCases.Interfaces;
 
 public interface ICreateDepositUseCase
 {
-    Task<Transaction> ExecuteAsync(CreateInternalTransactionRequest request);
+    Task<Transaction> ExecuteAsync(decimal amount, Guid accountId);
 }

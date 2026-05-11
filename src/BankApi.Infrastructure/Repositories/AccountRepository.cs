@@ -23,6 +23,11 @@ public class AccountRepository : IAccountRepository
         return await _dbContext.Accounts.FirstOrDefaultAsync(acc => acc.Id == id);
     }
 
+    public async Task<Account?> GetByOwnerIdAsync(Guid ownerId)
+    {
+        return await _dbContext.Accounts.FirstOrDefaultAsync(acc => acc.OwnerId == ownerId);
+    }
+
     public async Task AddAsync(Account account)
     {
         await _dbContext.Accounts.AddAsync(account);

@@ -77,6 +77,11 @@ public class CreateWithdrawUseCaseTests
 
         public Task<List<BankAccount>> GetAllAsync() => Task.FromResult(new List<BankAccount>());
         public Task<BankAccount?> GetByIdAsync(Guid id) => Task.FromResult(ExistingById);
+        public Task<BankAccount?> GetByOwnerIdAsync(Guid ownerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task AddAsync(BankAccount account) => Task.CompletedTask;
         public Task SaveChangesAsync() => Task.CompletedTask;
     }

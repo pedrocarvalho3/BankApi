@@ -148,6 +148,10 @@ public class RegisterUserUseCaseTests
 
         public Task<List<BankAccount>> GetAllAsync() => Task.FromResult(new List<BankAccount>());
         public Task<BankAccount?> GetByIdAsync(Guid id) => Task.FromResult<BankAccount?>(null);
+        public Task<BankAccount?> GetByOwnerIdAsync(Guid ownerId)
+        {
+            throw new NotImplementedException();
+        }
 
         public Task AddAsync(BankAccount account)
         {

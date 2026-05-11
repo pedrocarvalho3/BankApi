@@ -129,6 +129,11 @@ public class CreateTransferUseCaseTests
             return Task.FromResult<BankAccount?>(null);
         }
 
+        public Task<BankAccount?> GetByOwnerIdAsync(Guid ownerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task AddAsync(BankAccount account) => Task.CompletedTask;
         public Task SaveChangesAsync() => Task.CompletedTask;
     }
