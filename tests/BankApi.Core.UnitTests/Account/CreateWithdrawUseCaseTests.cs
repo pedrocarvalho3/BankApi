@@ -77,6 +77,11 @@ public class CreateWithdrawUseCaseTests
 
         public Task<List<BankAccount>> GetAllAsync() => Task.FromResult(new List<BankAccount>());
         public Task<BankAccount?> GetByIdAsync(Guid id) => Task.FromResult(ExistingById);
+        public Task<BankAccount?> GetByOwnerIdAsync(Guid ownerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task AddAsync(BankAccount account) => Task.CompletedTask;
         public Task SaveChangesAsync() => Task.CompletedTask;
     }
@@ -84,6 +89,11 @@ public class CreateWithdrawUseCaseTests
     private sealed class FakeTransactionRepository : ITransactionRepository
     {
         public Transaction? AddedTransaction { get; private set; }
+
+        public Task<List<Transaction>> GetAllByAccountIdAsync(Guid accountId)
+        {
+            throw new NotImplementedException();
+        }
 
         public Task AddAsync(Transaction transaction)
         {

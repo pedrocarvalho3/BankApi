@@ -6,6 +6,7 @@ public interface IAccountRepository
 {
     Task<List<Account>> GetAllAsync();
     Task<Account?> GetByIdAsync(Guid id);
+    Task<Account?> GetByOwnerIdAsync(Guid ownerId);
     Task AddAsync(Account account);
     Task SaveChangesAsync();
 }

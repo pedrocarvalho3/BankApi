@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using BankApi.Application.Contracts;
 using BankApi.Application.UseCases.Interfaces;
 
@@ -23,9 +24,17 @@ public static class AccountEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapPost("/deposit", async (CreateInternalTransactionRequest request, ICreateDepositUseCase useCase) =>
+        group.MapPost("/deposit", async (decimal amount, ICreateDepositUseCase useCase, HttpContext httpContext) =>
             {
-                var account = await useCase.ExecuteAsync(request);
+                var accountIdClaim = httpContext.User.FindFirstValue("accountId");
+                
+                if(string.IsNullOrWhiteSpace(accountIdClaim))
+                    return Results.Unauthorized();
+                
+                if (!Guid.TryParse(accountIdClaim, out var accountId))
+                    return Results.Unauthorized();
+                
+                var account = await useCase.ExecuteAsync(amount, accountId);
                 return Results.Ok(account);
             })
             .WithName("Deposit")
@@ -68,5 +77,13 @@ public static class AccountEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
+        
+        // group.MapGet("/movements", async (IListAllAccountMovements useCase) =>
+        // {
+        //     try
+        //     {
+        //         
+        //     }
+        // })
     }
 }

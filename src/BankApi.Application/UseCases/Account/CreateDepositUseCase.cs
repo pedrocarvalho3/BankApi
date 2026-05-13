@@ -14,18 +14,18 @@ public class CreateDepositUseCase : ICreateDepositUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Transaction> ExecuteAsync(CreateInternalTransactionRequest request)
+    public async Task<Transaction> ExecuteAsync(decimal amount, Guid accountId)
     {
-        var account = await _unitOfWork.Accounts.GetByIdAsync(request.accountId);
+        var account = await _unitOfWork.Accounts.GetByIdAsync(accountId);
 
         if (account is null)
-            throw new ArgumentException($"Account with id {request.accountId} does not exist");
+            throw new ArgumentException($"Account with id {accountId} does not exist");
 
-        account.Deposit(request.amount);
+        account.Deposit(amount);
         
         var transaction = Transaction.CreateDeposit(
-            request.accountId,
-            request.amount,
+            accountId,
+            amount,
             account.Balance
         );
         

@@ -129,6 +129,11 @@ public class CreateTransferUseCaseTests
             return Task.FromResult<BankAccount?>(null);
         }
 
+        public Task<BankAccount?> GetByOwnerIdAsync(Guid ownerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task AddAsync(BankAccount account) => Task.CompletedTask;
         public Task SaveChangesAsync() => Task.CompletedTask;
     }
@@ -136,6 +141,11 @@ public class CreateTransferUseCaseTests
     private sealed class FakeTransactionRepository : ITransactionRepository
     {
         public List<Transaction> AddedTransactions { get; } = new();
+
+        public Task<List<Transaction>> GetAllByAccountIdAsync(Guid accountId)
+        {
+            throw new NotImplementedException();
+        }
 
         public Task AddAsync(Transaction transaction)
         {
