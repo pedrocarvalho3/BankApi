@@ -85,6 +85,11 @@ public class CreateDepositUseCaseTests
     {
         public Transaction? AddedTransaction { get; private set; }
 
+        public Task<List<Transaction>> GetAllByAccountIdAsync(Guid accountId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task AddAsync(Transaction transaction)
         {
             AddedTransaction = transaction;

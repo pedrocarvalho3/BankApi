@@ -77,5 +77,13 @@ public static class AccountEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
+        
+        // group.MapGet("/movements", async (IListAllAccountMovements useCase) =>
+        // {
+        //     try
+        //     {
+        //         
+        //     }
+        // })
     }
 }

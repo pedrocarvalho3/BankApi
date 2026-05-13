@@ -142,6 +142,11 @@ public class CreateTransferUseCaseTests
     {
         public List<Transaction> AddedTransactions { get; } = new();
 
+        public Task<List<Transaction>> GetAllByAccountIdAsync(Guid accountId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task AddAsync(Transaction transaction)
         {
             AddedTransactions.Add(transaction);
